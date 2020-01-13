@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>meister</title>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>     
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    </head>
+    <body>
+        <h1>meister 2019 Python/IoTコース</h1>
+        
+        <div>
+            <div class="line__container">
+                <div class="line__title">
+                    #7 まとめ
+                </div>
+                <ul id="messages"></ul>
+            </div>
+            <button id="led-on">入室しました</button>
+            <button id="led-off">退室しました</button>
+            <a href="./temp.html">温度情報</a>
+        </div>
+        <script>
+            // TODO0 ここに設定情報を貼り付ける  
+            
+            // データベースの参照を準備
+            var ledRef = firebase.firestore().collection('led')
+        
+            // TODO1 送信ボタンが押された時の処理
+            
+            $('#led-on').click(function() {
+		    // {led: "ON"}を送信
+            });
+            $('#led-off').click(function() {
+		    // {led: "OFF"}を送信
+            });
+
+        </script>
+    </body>
+</html>

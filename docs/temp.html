@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>温度チャート</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>     
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
+</head>
+
+<body>
+  <canvas id="tempchart"></canvas>
+  <div class="ct-chart"></div>
+
+
+  <script>
+    var ctx = document.getElementById("tempchart");
+    
+    // TODO:0 ここに設定を入れる
+
+
+    var db = firebase.firestore()
+    var initialData=[];
+
+
+    var chart = new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets:[{ // データセットには温度という名前を与える
+          label:'温度',
+          data:initialData,
+          fill:false
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time', // 横軸が時間なので、時間用の設定を使う
+
+          }]
+        }
+      }
+    });
+    db.collection("temperature").onSnapshot(querySnapshot => {
+      const array=[]
+      querySnapshot.forEach(function(doc) {
+        array.push(doc)
+      });
+      array.sort((a,b)=>{
+        return Date.parse(a)-Date.parse(b)
+      }).forEach(function(doc) {
+        array.push(doc)
+        const data = {x:doc.id,y:doc.data().temp};
+        chart.data.datasets[0].data.push(data);
+      });
+      chart.update(); // 再描画
+    }, err => {
+    	console.log(err)
+    });
+
+    
+  </script>
+</body>
+
+</html>
