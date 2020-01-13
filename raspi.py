@@ -46,16 +46,19 @@ off_ref = db.collection('led').where(u'led', u'==', u'OFF')
 doc_watch = on_ref.on_snapshot(on_snapshot)
 doc_watch = off_ref.on_snapshot(on_snapshot)
 
-# 温度センサの管理を行う部分
-# 温度センサと接続できたら，「'''」を取る
+# 温度湿度気圧センサから値を取得してFirestoreに送信する部分
+# 「'''」で囲まれた部分はコメントアウトされているので，参考にすること．
 '''
 while True:
-    block = i2c.read_i2c_block_data(address, 0x00, 12)
-    temp = (block[0] << 8 | block[1]) >> 3
-    if(temp >= 4096):
-        temp -= 8192
-    print("Temperature:%6.2f" % (temp / 16.0))
-    data = {"temp": temp / 16.0}
+    #温度，湿度，気圧の値を取得する
+    #temp = 
+    #hum = 
+    #press = 
+
+    print("Temperature:%6.2f" %(temp))
+    print("Humidity:%6.2f" %(hum))
+    print("Pressure:%6.2f" %(press))
+    data = {"temp": temp, "hum": hum, "press":press}
     db.collection('temperature').document(str(datetime.datetime.now())).set(data)
     time.sleep(1)
 '''
