@@ -23,16 +23,19 @@
         <script>
             // TODO0 ここに設定情報を貼り付ける  
             
+
             // データベースの参照を準備
             var ledRef = firebase.firestore().collection('led')
         
             // TODO1 送信ボタンが押された時の処理
             
             $('#led-on').click(function() {
-		    // {led: "ON"}を送信
+    		    // {led: "ON"}を送信
+    		    ledRef.add({led: "ON"});
             });
             $('#led-off').click(function() {
-		    // {led: "OFF"}を送信
+	    	    // {led: "OFF"}を送信
+	    	    ledRef.add({led: "OFF"});
             });
 
         </script>

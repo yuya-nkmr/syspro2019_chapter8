@@ -18,7 +18,7 @@
     var ctx = document.getElementById("tempchart");
     
     // TODO:0 ここに設定を入れる
-
+    
 
     var db = firebase.firestore()
     var initialData=[];
@@ -28,9 +28,9 @@
       type: 'scatter',
       data: {
         datasets:[{ // データセットには温度という名前を与える
-          label:'温度',
-          data:initialData,
-          fill:false
+            label:'温度',
+            data:initialData,
+            fill:false
         }]
       },
       options: {
@@ -50,13 +50,13 @@
       array.sort((a,b)=>{
         return Date.parse(a)-Date.parse(b)
       }).forEach(function(doc) {
-        array.push(doc)
+        array.push(doc);
         const data = {x:doc.id,y:doc.data().temp};
         chart.data.datasets[0].data.push(data);
       });
       chart.update(); // 再描画
     }, err => {
-    	console.log(err)
+    	console.log(err);
     });
 
     
